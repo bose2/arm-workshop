@@ -1,19 +1,38 @@
 {
     "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
     "contentVersion": "1.0.0.0",
-    "parameters": {},
+    "parameters": {
+        "EdgarDevSA1": {
+           "type": "string",
+           "metadata": {
+                "description": "Storage Account Name - must be unique"
+            }
+        },
+        "accountType": {
+            "type": "string",
+            "defaultValue": "Standard_LRS",
+            "allowedValues": [
+                "Standard_LRS",
+                "Premium_LRS",
+                "Standard_RAGRS"
+            ],
+            "metadata": {
+                "description": "SKU Type"
+            }
+        }
+    },
     "variables": {},
     "resources": [
         {
             "type": "Microsoft.Storage/storageAccounts",
             "apiVersion": "2015-06-15",
-            "name": "EdgarDevSA1",
+            "name": "[parameters('EdgarDevSA1')]",
             "location": "[resourceGroup().location]",
             "tags": {
-                "displayName": "EdgarDevSA1"
+                "displayName": "[parameters('EdgarDevSA1')]"
             },
             "properties": {
-                "accountType": "Standard_LRS"
+                "accountType": "[parameters('accountType')]"
             }
         }
     ],
